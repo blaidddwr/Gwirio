@@ -51,8 +51,8 @@ $(incl)%.h: %.h
 
 $(build)%.d: %.cpp
 +@echo "Building depend $(*F)"
-+@echo -n "$@ $(build)$*.d1.o $(build)$*.d2.o $(build)" > $@
-+@$(CXX) $(acxxflags) -MM $< | sed 's/.o:/.m.o:/' >> $@
++@echo -n "$@ $(build)" > $@
++@$(CXX) $(acxxflags) -MM $< >> $@
 
 clean:
 +@echo "Cleaning all objects."
