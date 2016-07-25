@@ -1,6 +1,6 @@
 #include "utest.h"
 #include <iostream>
-namespace gwr {
+namespace Gwirio {
 
 
 
