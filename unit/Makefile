@@ -23,12 +23,14 @@ objs := $(addprefix $(build),$(srcs:%.cpp=%.o))
 
 
 
-.PHONY: clean depclean all unit check
+.PHONY: clean depclean all unit check base
 
 all: unit
 unit: $(progf)
 
+ifndef DEPIGNORE
 include $(dpds)
+endif
 
 $(progf): $(objs) $(dpds)
 +@echo "Building unit test."
@@ -46,6 +48,10 @@ $(build)%.d: %.cpp
 +@echo -n "$@ $(build)" > $@
 +@$(CXX) $(acxxflags) -MM $< >> $@
 
+base:
++@echo "Building base code..."
++@cd ../src && $(MAKE)
+
 check:
 +@echo "Running unit tests..."
 +@cd $(run) && ./$(NAME)
@@ -57,7 +63,3 @@ clean:
 depclean:
 +@echo "Cleaning all dependency files."
 +@rm -f $(build)*.d
-
-doc:
-+@echo "Making documentation."
-+@doxygen

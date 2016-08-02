@@ -9,6 +9,11 @@ FILES := Gwirio.files
 build := ../build/
 lib := ../lib/
 incl := ../include/
+ifndef IROOT
+path := ../..
+else
+path := $(IROOT)
+endif
 
 acxxflags := $(CXXFLAGS) -g -std=c++11
 aldflags := $(LDFLAGS)
@@ -22,16 +27,16 @@ srcs := $(filter %.cpp,$(raw))
 dpds := $(addprefix $(build),$(srcs:%.cpp=%.d))
 objs := $(addprefix $(build),$(srcs:%.cpp=%.o))
 
-hdrs := $(addprefix $(incl),$(filter %.h,$(raw)))
 
 
-
-.PHONY: clean depclean all library doc
+.PHONY: clean depclean all library doc install
 
 all: library
 library: $(libf) $(hdrs)
 
+ifndef DEPIGNORE
 include $(dpds)
+endif
 
 $(libf): $(objs) $(dpds)
 +@echo "Building library."
@@ -44,10 +49,6 @@ depend: $(dpds)
 $(build)%.o : %.cpp
 +@echo "Building object $(*F)."
 +@$(CXX) $(acxxflags) -c $< -o $@
-
-$(incl)%.h: %.h
-+@echo "Linking $(*F)."
-+@cp $< $@
 
 $(build)%.d: %.cpp
 +@echo "Building depend $(*F)"
@@ -65,3 +66,10 @@ depclean:
 doc:
 +@echo "Making documentation."
 +@doxygen
+
+install: $(libf)
++@echo "Installing module."
++@mkdir -p "$(path)/lib"
++@cp $(libf) "$(path)/lib"
++@mkdir -p "$(path)/include/$(NAME)"
++@cp *.h "$(path)/include/$(NAME)"
