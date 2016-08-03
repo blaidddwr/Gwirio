@@ -62,7 +62,7 @@ int UTest::Run::execute()
    {
       _count = 1;
       ++_tCount;
-      std::cout << ".";
+      std::cout << "." << std::flush;
       try
       {
          i->second(*this);
@@ -93,7 +93,7 @@ int UTest::Run::execute()
 
 void UTest::Run::next()
 {
-   std::cout << ".";
+   std::cout << "." << std::flush;
    ++_count;
    ++_tCount;
 }
