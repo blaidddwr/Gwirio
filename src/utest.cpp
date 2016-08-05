@@ -4,7 +4,7 @@ namespace Gwirio {
 
 
 
-UTest::Run& UTest::add(const string& name, fp in, fp out)
+UTest::Run& UTest::add(const String& name, Fp in, Fp out)
 {
    _runs.emplace_back(new Run(name,in,out));
    return *_runs.back();
@@ -35,7 +35,7 @@ bool UTest::execute()
 
 
 
-UTest::Run::Run(const string& name, fp in, fp out):
+UTest::Run::Run(const String& name, Fp in, Fp out):
    _name {name},
    _in {in},
    _out {out}
@@ -43,9 +43,9 @@ UTest::Run::Run(const string& name, fp in, fp out):
 
 
 
-void UTest::Run::add(const string& name, tfp test)
+void UTest::Run::add(const String& name, Tfp test)
 {
-   _tests.emplace_back(pair(name,test));
+   _tests.emplace_back(Pair(name,test));
 }
 
 

@@ -10,19 +10,19 @@ namespace Gwirio {
 class UTest
 {
 public:
-   using string = std::string;
-   using fp = void (*)(void);
+   using String = std::string;
+   using Fp = void (*)(void);
    class Run;
    UTest() = default;
    UTest(const UTest&) = delete;
    UTest& operator=(const UTest&) = delete;
    UTest(UTest&&) = delete;
    UTest& operator=(UTest&&) = delete;
-   Run& add(const string& name, fp in, fp out);
+   Run& add(const String& name, Fp in, Fp out);
    bool execute();
 private:
-   using list = std::vector<std::unique_ptr<Run>>;
-   list _runs;
+   using List = std::vector<std::unique_ptr<Run>>;
+   List _runs;
 };
 
 
@@ -30,25 +30,25 @@ private:
 class UTest::Run
 {
 public:
-   using string = std::string;
-   using fp = UTest::fp;
-   using tfp = void (*)(Run&);
+   using String = UTest::String;
+   using Fp = UTest::Fp;
+   using Tfp = void (*)(Run&);
    struct Fail {};
-   Run(const string& name, fp in, fp out);
+   Run(const String& name, Fp in, Fp out);
    Run(const Run&) = delete;
    Run& operator=(const Run&) = delete;
    Run(Run&&) = delete;
    Run& operator=(Run&&) = delete;
-   void add(const string& name, tfp test);
+   void add(const String& name, Tfp test);
    int execute();
    void next();
 private:
-   using pair = std::pair<std::string,void(*)(Run&)>;
-   using list = std::vector<pair>;
-   string _name;
-   fp _in;
-   fp _out;
-   list _tests;
+   using Pair = std::pair<String,Tfp>;
+   using List = std::vector<Pair>;
+   String _name;
+   Fp _in;
+   Fp _out;
+   List _tests;
    int _count {0};
    int _tCount {0};
 };
