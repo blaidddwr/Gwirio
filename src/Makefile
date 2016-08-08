@@ -71,5 +71,3 @@ install: $(libf)
 +@echo "Installing module."
 +@mkdir -p "$(path)/lib"
 +@cp $(libf) "$(path)/lib"
-+@mkdir -p "$(path)/include/$(NAME)"
-+@cp *.h "$(path)/include/$(NAME)"

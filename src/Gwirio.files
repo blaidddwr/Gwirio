@@ -1,4 +1,4 @@
 Makefile
+../gwirio.h
 utest.cpp
 utest.h
-gwirio.h

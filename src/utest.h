@@ -1,5 +1,5 @@
-#ifndef GWR_UTEST_HH
-#define GWR_UTEST_HH
+#ifndef GWIRIO_UTEST_HH
+#define GWIRIO_UTEST_HH
 #include <string>
 #include <vector>
 #include <memory>
